@@ -1,70 +1,35 @@
 # Roborumble-solo-innovator (Maleto Hlolane)
+# ClimaAware - Smart Child Weather Safety System
 
-# ClimaAware - Child Safety Climate Door System
+## 1. High-Level Summary of Solution
 
-## Project Description
-ClimaAware is a smart IoT safety device mounted on the side of the door that prevents children from going outside during dangerous weather. It monitors temperature and humidity and uses audio-visual alerts to warn parents and stop children.
+*What uhm i  doing?*
+ClimaAware is a safety system that protects children from playing outside during dangerous weather conditions like extreme heat, cold, or high humidity that can cause heatstroke or illness.
 
-Category: Sustainable Home & Child Safety / Climate Awareness
+*How are we building it?*
+We are building it using an ESP32 microcontroller as the brain. The system uses:
+- DHT22 sensor to monitor temperature and humidity in real-time
+- PIR motion sensor to detect when a child tries to go outside
+- SSD1306 OLED display to show live status
+- Red/Green LEDs and 2 Buzzers for visual and sound alerts
+- Rocker Switch (ON/OFF) and Emergency Stop Button for safety control
 
-## Hardware Components
-- ESP32 DevKit v1
-- DHT22 Sensor (Temperature & Humidity)
-- SSD1306 OLED Display (128x64)
-- PIR Motion Sensor (HC-SR501)
-- Green LED (SAFE)
-- Red LED (NOT SAFE)
-- 2x Buzzer (Buzzer 1: Slow Warning, Buzzer 2: Fast Kid Alert)
-- Rocker Switch
-- White Enclosure Box
+The system has 3 states: SAFE (Green LED), NOT SAFE (Red LED + slow buzzer), and KID DETECTED (Red LED + fast loud buzzer).
 
-## Software & Frameworks
-- *Language:* C++ (Arduino)
-- *IDE:* Arduino IDE 2.x / Wokwi Simulator
-- *Framework:* Arduino Framework for ESP32
-- *Libraries Required:*
-    - DHT sensor library by Adafruit (v1.4.4)
-    - Adafruit SSD1306 (v2.5.9)
-    - Adafruit GFX Library (v1.11.9)
+*Technology:* Wokwi Simulation, Arduino C++, ESP32 DevKit V1
 
-## How to Run the Code
+## 2. Directory Map
 
-### Option 1: Wokwi Simulator (For Judges)
-1. Go to https://wokwi.com
-2. Import diagram.json and ClimaAware.ino
-3. Click Play
-4. Change DHT22 temperature slider to test SAFE / NOT SAFE logic
+This repository is organized into 3 accessible folders as per competition rules:
 
-### Option 2: Real Hardware
-1. Install Arduino IDE
-2. Install libraries listed above via Library Manager
-3. Connect ESP32 via USB
-4. Select Board: "ESP32 Dev Module"
-5. Upload ClimaAware.ino
-6. Power ON with rocker switch
+| Folder | Description |
+| :--- | :--- |
+| */Source Code* | Contains the main Arduino code (.ino) for the ESP32, including sensor reading, logic, and alert system. |
+| */Designs* | Contains the Wokwi wiring diagram (diagram.json), circuit schematics, breadboard layout, and component images. |
+| */Documentation* | Contains project explanation, component list, connection explanation, test results, and future improvements. |
 
-## Control Logic / Programming Design
-
-*Method:* Threshold-based Control + Finite State Machine (FSM)
-
-*3 System States:*
-1.  *SAFE STATE (Temp 18-30°C, Hum <80%):*
-        - Green LED = ON
-        - Red LED = OFF
-        - Buzzer 1 = OFF, Buzzer 2 = OFF
-        - OLED: "LED: Green | PIR: Clear"
-
-2.  *NOT SAFE STATE (Temp <18°C or >30°C or Hum >80%):*
-        - Green LED = OFF
-        - Red LED = ON
-        - Buzzer 1 = SLOW BEEP (warning to parents)
-        - OLED: "LED: Red | NOT SAFE"
-
-3.  *KID DETECTED STATE (PIR = HIGH while in NOT SAFE):*
-        - Buzzer 2 = FAST BEEP (loud alert to stop child)
-        - OLED: "PIR: KID!"
-        - System loops until PIR = Clear
-
-The system runs in a continuous loop, reading sensors every 2 seconds.
-
-## File Structure
+## How to Run
+1. Open the Wokwi project link in /Designs
+2. Click PLAY
+3. Change DHT22 temperature to test SAFE and NOT SAFE states
+4. Trigger PIR sensor to test KID DETECTED alert
